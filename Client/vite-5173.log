@@ -1,0 +1,20 @@
+
+> findit-campus-client@1.0.0 dev
+> vite --host localhost
+
+
+  VITE v7.2.2  ready in 229 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  press h + enter to show help
+11:19:32 am [vite] (client) page reload src/App.jsx
+11:20:04 am [vite] (client) page reload src/App.jsx
+11:20:05 am [vite] (client) hmr update /src/styles.css
+11:20:15 am [vite] (client) page reload src/App.jsx
+11:25:51 am [vite] (client) page reload src/App.jsx
+11:26:24 am [vite] (client) page reload src/App.jsx
+11:39:34 am [vite] (client) page reload src/App.jsx
+11:43:17 am [vite] (client) page reload src/AdminDashboardStats.jsx
+11:50:40 am [vite] (client) page reload src/App.jsx
+11:50:42 am [vite] (client) hmr update /src/admin-styles.css
+11:53:10 am [vite] (client) page reload src/AdminLogin.jsx
