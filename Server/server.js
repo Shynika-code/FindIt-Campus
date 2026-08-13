@@ -11,7 +11,17 @@ const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || "http://localhost:5173" }));
+const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:5173,http://localhost:5174")
+  .split(",")
+  .map((origin) => origin.trim());
+
+app.use(cors({
+  origin(origin, callback) {
+    // Requests made outside a browser have no Origin header.
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error("Origin is not allowed by CORS"));
+  },
+}));
 app.use(express.json());
 
 // Connect to MongoDB

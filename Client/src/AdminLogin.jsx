@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LogIn, AlertCircle, Loader } from 'lucide-react'
+import { LogIn, AlertCircle, Loader, ShieldCheck } from 'lucide-react'
 import { request } from './api'
 
 export default function AdminLogin() {
@@ -108,11 +108,7 @@ export default function AdminLogin() {
           </form>
 
           <div className="admin-login-footer">
-            <p className="demo-credentials">
-              <strong>Demo Credentials:</strong><br />
-              Email: admin@findit.com<br />
-              Password: admin@123
-            </p>
+            <p className="demo-credentials"><ShieldCheck size={16} /> Use the email and password you created for your admin account.</p>
           </div>
         </div>
 

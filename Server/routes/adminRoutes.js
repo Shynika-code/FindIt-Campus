@@ -3,6 +3,7 @@ const adminProtect = require("../middleware/adminMiddleware");
 
 const {
   adminLogin,
+  registerAdmin,
   getDashboardStats,
   getAllUsers,
   toggleUserStatus,
@@ -18,6 +19,7 @@ const router = express.Router();
 
 // Public routes
 router.post("/login", adminLogin);
+router.post("/register", registerAdmin);
 
 // Protected admin routes
 router.get("/profile", adminProtect, getAdminProfile);

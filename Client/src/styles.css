@@ -1301,6 +1301,43 @@ em {
   color: #ff6b4a;
 }
 
+.admin-portal-button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--coral);
+  border-radius: 10px;
+  color: var(--coral);
+  font-size: 14px;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.admin-portal-button:hover {
+  background: rgba(240, 123, 92, 0.1);
+  color: #ff6b4a;
+}
+
+.admin-register-heading { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.85rem 0; color: var(--ink); }
+.admin-register-heading svg { color: var(--coral); flex: 0 0 auto; margin-top: 0.2rem; }
+.admin-register-heading h2 { margin: 0; }
+.admin-register-heading p { margin: 0.25rem 0 0; }
+
+.admin-registration-link { display: flex; gap: 0.4rem; align-items: center; justify-content: center; margin-top: 14px; color: var(--muted); font-size: 14px; }
+.admin-registration-link svg, .admin-registration-link a { color: var(--coral); }
+.admin-registration-link a { font-weight: 700; }
+
+.account-type-options { display: grid; gap: 0.8rem; margin-top: 1.5rem; }
+.account-type-card { display: flex; gap: 0.85rem; align-items: center; padding: 1rem; border: 1px solid var(--border); border-radius: 12px; color: var(--ink); transition: var(--transition-fast); }
+.account-type-card:hover { border-color: var(--coral); box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08); transform: translateY(-2px); }
+.account-type-card svg { color: var(--coral); flex: 0 0 auto; }
+.account-type-card span { display: grid; gap: 0.2rem; }
+.account-type-card small { color: var(--muted); }
+
 /* ============================================
    HOW IT WORKS SECTION
    ============================================ */

@@ -24,6 +24,7 @@ const generateAdminToken = (admin) => {
 const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = email?.trim().toLowerCase();
 
     if (!email || !password) {
       return res.status(400).json({
@@ -32,7 +33,7 @@ const adminLogin = async (req, res) => {
       });
     }
 
-    const admin = await Admin.findOne({ email });
+    const admin = await Admin.findOne({ email: normalizedEmail });
 
     if (!admin) {
       return res.status(401).json({
@@ -84,6 +85,44 @@ const adminLogin = async (req, res) => {
   }
 };
 
+// Create an administrator account.
+const registerAdmin = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const normalizedEmail = email?.trim().toLowerCase();
+
+    if (!name?.trim() || !normalizedEmail || !password) {
+      return res.status(400).json({ success: false, message: "Name, email, and password are required" });
+    }
+
+    if (password.length < 12) {
+      return res.status(400).json({ success: false, message: "Admin password must be at least 12 characters long" });
+    }
+
+    const existingAdmin = await Admin.findOne({ email: normalizedEmail });
+    if (existingAdmin) {
+      return res.status(409).json({ success: false, message: "An admin account with this email already exists" });
+    }
+
+    const admin = await Admin.create({
+      name: name.trim(),
+      email: normalizedEmail,
+      password: await bcrypt.hash(password, 12),
+      role: "super_admin",
+      permissions: { canManageUsers: true, canManageItems: true, canManageClaims: true, canViewAnalytics: true },
+      isActive: true,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Admin account created. You can now sign in.",
+      admin: { id: admin._id, name: admin.name, email: admin.email, role: admin.role },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Unable to create admin account" });
+  }
+};
+
 // Get Dashboard Statistics
 const getDashboardStats = async (req, res) => {
   try {
@@ -121,7 +160,7 @@ const getDashboardStats = async (req, res) => {
     const recentClaims = await Claim.find()
       .sort({ createdAt: -1 })
       .limit(10)
-      .populate("userId", "name email")
+      .populate("claimantId", "name email")
       .populate("itemId", "title");
 
     res.status(200).json({
@@ -339,7 +378,7 @@ const getAllClaims = async (req, res) => {
     const claims = await Claim.find(query)
       .skip((page - 1) * limit)
       .limit(parseInt(limit))
-      .populate("userId", "name email")
+      .populate("claimantId", "name email")
       .populate("itemId", "title type category")
       .sort({ createdAt: -1 });
 
@@ -382,7 +421,7 @@ const updateClaimStatus = async (req, res) => {
       { status },
       { new: true }
     )
-      .populate("userId", "name email")
+      .populate("claimantId", "name email")
       .populate("itemId", "title");
 
     if (!claim) {
@@ -433,6 +472,7 @@ const getAdminProfile = async (req, res) => {
 
 module.exports = {
   adminLogin,
+  registerAdmin,
   getDashboardStats,
   getAllUsers,
   toggleUserStatus,

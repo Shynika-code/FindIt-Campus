@@ -208,7 +208,7 @@ export default function AdminDashboardStats() {
                   {stats.recentClaims.map(claim => (
                     <tr key={claim._id}>
                       <td>{claim.itemId?.title || 'Unknown Item'}</td>
-                      <td>{claim.userId?.name || 'Unknown'}</td>
+                      <td>{claim.claimantId?.name || 'Unknown'}</td>
                       <td>
                         <span className={`status-badge ${claim.status}`}>
                           {claim.status}
